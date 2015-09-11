@@ -77,7 +77,7 @@ public class MediaExemplaireDaoTestCase {
 		}
     }
     
-     @Test
+//     @Test
     public void recupererParId() {
        Media m1 = mediaDao.recupererParId(identifiant);
         //lister les exemplaires
@@ -93,6 +93,18 @@ public class MediaExemplaireDaoTestCase {
         }
     }
     
+
+     @Test
+     public void recupererList() { 
+    	 logger.info("--------------------------- recupererList"); 
+
+    	 em = emf.createEntityManager();
+    	 mediaDao = new MediaDaoImpl(em);
+    	 int nombreMediaApres = mediaDao.recupererMedias(0, 10).size();
+    	 assertEquals(1 , nombreMediaApres);
+     }
+     
+     
 //    @Test
 	public void supprimer() {
 		em.getTransaction().begin();

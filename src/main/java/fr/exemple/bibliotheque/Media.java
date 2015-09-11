@@ -26,6 +26,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 
 /**
@@ -38,7 +40,7 @@ import org.hibernate.annotations.NaturalId;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="discriminant", discriminatorType=DiscriminatorType.STRING)
 @DiscriminatorValue("media")
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Media {
     @Id
     @Column(name="identifiant")
