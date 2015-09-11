@@ -25,6 +25,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -55,6 +56,9 @@ public class Media {
     
     @Column(length=100)
     private String auteur;
+    
+    @Version
+    private long version;
     
     @OneToMany(mappedBy = "media",cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private List<Exemplaire> exemplaires;
@@ -158,6 +162,13 @@ public class Media {
             addCategorie(newC);
         }
     }
-    
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
     
 }
