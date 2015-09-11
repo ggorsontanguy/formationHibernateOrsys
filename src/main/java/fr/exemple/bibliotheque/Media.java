@@ -30,6 +30,7 @@ import javax.persistence.Version;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -55,6 +56,7 @@ public class Media {
     private String titre;
     
     @Column(length=100)
+    @Length(max =5, min=2)
     private String auteur;
     
     @Version
