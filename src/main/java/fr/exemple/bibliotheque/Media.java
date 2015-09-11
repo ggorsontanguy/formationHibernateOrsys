@@ -31,6 +31,7 @@ import javax.persistence.Version;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -56,10 +57,11 @@ public class Media {
     private String titre;
     
     @Column(length=100)
+    @Length(max =5, min=2)
     private String auteur;
     
     @Version
-    private Date version;
+    private long version;
     
     @OneToMany(mappedBy = "media",cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private List<Exemplaire> exemplaires;
@@ -164,11 +166,11 @@ public class Media {
         }
     }
 
-	public Date getVersion() {
+	public long getVersion() {
 		return version;
 	}
 
-	public void setVersion(Date version) {
+	public void setVersion(long version) {
 		this.version = version;
 	}
     

@@ -84,15 +84,15 @@ public class MediaExemplaireDaoTestCase {
        Media m1 = mediaDao.recupererParId(identifiant);
        
        	logger.info("Numéro de version: "+m1.getVersion());
-//        assertEquals(0, m1.getVersion());
+        assertEquals(0, m1.getVersion());
        	
-       	m1.setAuteur(" new auteur");;
+       	m1.setAuteur(" new ");;
        	em.getTransaction().begin();
-       	mediaDao.modifer(m1);
+//       	mediaDao.modifer(m1);
        	em.getTransaction().commit();
        	
         m1 = mediaDao.recupererParId(identifiant);
-//        assertEquals(1, m1.getVersion());
+        assertEquals(1, m1.getVersion());
        	logger.info("Numéro de version: "+m1.getVersion());
        
         //lister les exemplaires
