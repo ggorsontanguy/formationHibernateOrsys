@@ -77,8 +77,10 @@ public class MediaExemplaireDaoTestCase {
 		}
     }
     
-//     @Test
+     @Test
     public void recupererParId() {
+    	 em = emf.createEntityManager();
+         mediaDao = new MediaDaoImpl(em);
        Media m1 = mediaDao.recupererParId(identifiant);
         //lister les exemplaires
        // Media m1Clone = new Media(m1.getId(), m1.getTitre(), m1.getAuteur());
@@ -96,7 +98,7 @@ public class MediaExemplaireDaoTestCase {
 
      @Test
      public void recupererList() { 
-    	 logger.info("--------------------------- recupererList"); 
+    	 logger.info("XXXXX--------------------------- recupererList"); 
 
     	 em = emf.createEntityManager();
     	 mediaDao = new MediaDaoImpl(em);

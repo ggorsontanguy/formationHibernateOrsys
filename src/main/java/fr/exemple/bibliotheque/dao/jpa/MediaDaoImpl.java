@@ -69,7 +69,7 @@ public class MediaDaoImpl implements  MediaDao{
         Session hSession = (Session) em.getDelegate() ;
         SessionFactory sessionFactory = hSession.getSessionFactory();
          //sessionFactory.getCache().evictEntityRegion("media");
-        sessionFactory.getCache().evictDefaultQueryRegion();
+        //sessionFactory.getCache().evictDefaultQueryRegion();
         Statistics statistics = sessionFactory.getStatistics();
         logger.info("____________Statistiques " + statistics.getEntityLoadCount());
         logger.info("____________Statistiques " + statistics.getEntityFetchCount());
