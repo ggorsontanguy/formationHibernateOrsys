@@ -5,8 +5,8 @@
     
 <!--     <jta-data-source>jdbc/DataSource</jta-data-source> -->
     
-    
     <class>fr.exemple.bibliotheque.Exemplaire</class>
+    <class>fr.exemple.bibliotheque.Media</class>
     <class>fr.exemple.bibliotheque.Livre</class>
     <class>fr.exemple.bibliotheque.Categorie</class>
 	<properties>
@@ -27,7 +27,7 @@
 	<property name="javax.persistence.schema-generation.scripts.action"
 		value="drop-and-create" />
 	<property name="javax.persistence.schema-generation.database.create-target"
-		value="create-biblio.ddll" />
+		value="create-biblio.ddl" />
 	<property name="javax.persistence.schema-generation.database.drop-target"
 		value="drop-biblio.ddl" />
 	<property name="javax.persistence.schema-generation.sql-load-script-source"
