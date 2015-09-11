@@ -11,6 +11,9 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,9 +35,9 @@ import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name="t_media")
-@Inheritance(strategy = InheritanceType.JOINED)
-//@DiscriminatorColumn(name="discriminant")
-//@DiscriminatorValue("m")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="discriminant", discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorValue("media")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Media {
     @Id

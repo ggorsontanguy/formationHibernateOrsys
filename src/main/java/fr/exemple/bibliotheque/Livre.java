@@ -9,6 +9,7 @@ package fr.exemple.bibliotheque;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -18,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="t_livre")
-//@DiscriminatorValue("l")
+@DiscriminatorValue("livre")
 public class Livre extends Media implements Serializable {
 
 	/**

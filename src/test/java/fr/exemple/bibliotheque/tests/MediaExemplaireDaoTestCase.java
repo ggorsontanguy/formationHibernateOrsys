@@ -93,7 +93,7 @@ public class MediaExemplaireDaoTestCase {
         }
     }
     
-    @Test
+//    @Test
 	public void supprimer() {
 		em.getTransaction().begin();
 		Media m1 = mediaDao.recupererParId(identifiant);
