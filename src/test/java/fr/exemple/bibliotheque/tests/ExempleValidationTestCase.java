@@ -33,7 +33,7 @@ public class ExempleValidationTestCase {
 
 	@Test
 	public void test() {
-		Media m1 = new Media(0, "titre", "auteur");
+		Media m1 = new Media(0, "titre", "auteu");
 		Set<ConstraintViolation<Media>> liste = validator.validate(m1);
 		for (ConstraintViolation<Media> c : liste) {
 			System.out.println(" erreur " + c.getMessage());
