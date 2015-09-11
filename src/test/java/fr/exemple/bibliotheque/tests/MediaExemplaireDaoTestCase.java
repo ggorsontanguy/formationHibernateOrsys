@@ -88,7 +88,7 @@ public class MediaExemplaireDaoTestCase {
        	
        	m1.setAuteur(" new auteur");;
        	em.getTransaction().begin();
-       	mediaDao.modifer(m1);
+//       	mediaDao.modifer(m1);
        	em.getTransaction().commit();
        	
         m1 = mediaDao.recupererParId(identifiant);
