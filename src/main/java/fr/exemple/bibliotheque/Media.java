@@ -7,6 +7,7 @@
 package fr.exemple.bibliotheque;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -58,7 +59,7 @@ public class Media {
     private String auteur;
     
     @Version
-    private long version;
+    private Date version;
     
     @OneToMany(mappedBy = "media",cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private List<Exemplaire> exemplaires;
@@ -163,11 +164,11 @@ public class Media {
         }
     }
 
-	public long getVersion() {
+	public Date getVersion() {
 		return version;
 	}
 
-	public void setVersion(long version) {
+	public void setVersion(Date version) {
 		this.version = version;
 	}
     
