@@ -7,12 +7,16 @@
 package fr.exemple.bibliotheque;
 
 import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NaturalId;
 
 /**
  *
@@ -23,6 +27,8 @@ import javax.persistence.Table;
 //@DiscriminatorValue("l")
 public class Livre extends Media implements Serializable {
 
+	@NaturalId
+	@Column(unique= true, length=12, nullable= false)
     private String isbn;
     private int  pages;
 
