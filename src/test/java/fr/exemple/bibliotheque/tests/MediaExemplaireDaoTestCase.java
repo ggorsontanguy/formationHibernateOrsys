@@ -17,6 +17,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fr.exemple.bibliotheque.EtatExemplaire;
 import fr.exemple.bibliotheque.Exemplaire;
 import fr.exemple.bibliotheque.Media;
 import fr.exemple.bibliotheque.dao.MediaDao;
@@ -56,17 +57,17 @@ public class MediaExemplaireDaoTestCase {
     public void ajouter() {
         try {
 			Media m1 = new Media(0, "UML","Orsys");
-//			Exemplaire e1 = new Exemplaire(1, "UN",EtatExemplaire.Perdu);
-//			Exemplaire e2 = new Exemplaire(2, "DEUX",EtatExemplaire.Disponible);
-//			//associer les exemplaires au media
-//			m1.addExemplaire(e1);
-//			m1.addExemplaire(e2);
-			em.getTransaction().begin();
-			mediaDao.ajouter(m1);
-			em.getTransaction().commit();
-			logger.info("Identifiant : "+ m1.getId() );
-			int nombreMediaApres = mediaDao.recupererMedias(0, 10).size();
-			assertEquals(1 , nombreMediaApres);
+			Exemplaire e1 = new Exemplaire(0, "ref1", EtatExemplaire.Perdu);
+			Exemplaire e2 = new Exemplaire(0, "ref2", EtatExemplaire.Disponible);
+			//		        associer les exemplaires au media
+			m1.addExemplaire(e1);
+			m1.addExemplaire(e2);
+			 em.getTransaction().begin();
+			 mediaDao.ajouter(m1);
+			 em.getTransaction().commit();
+			 logger.info("Identifiant : "+ m1.getId() );
+			 int nombreMediaApres = mediaDao.recupererMedias(0, 10).size();
+			 assertEquals(1 , nombreMediaApres);
       // em.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,21 +77,35 @@ public class MediaExemplaireDaoTestCase {
     
      @Test
     public void recupererParId() {
-       em = emf.createEntityManager();
-       mediaDao = new MediaDaoImpl(em);
        Media m1 = mediaDao.recupererParId(1);
         //lister les exemplaires
        // Media m1Clone = new Media(m1.getId(), m1.getTitre(), m1.getAuteur());
         //m1Clone.setExemplaires(m1.getExemplaires());
         //m1.addExemplaire(new Exemplaire(3,EtatExemplaire.Disponible));
        logger.info("---------------------------"); 
-        m1.getExemplaires().size();
+        int nbExemplaires = m1.getExemplaires().size();
+        assertEquals(2, nbExemplaires);
         logger.info("---------------------------");
         for(Exemplaire e : m1.getExemplaires()){
             logger.info("Exemplaire  Id : "+e.getId()+ " etat :"+e.getEtat());
         }
     }
     
-    
+    @Test
+	public void supprimer() {
+		em.getTransaction().begin();
+		Media m1 = mediaDao.recupererParId(1);
+
+		assertEquals(true, m1 != null);
+
+		// supprimer le media
+		mediaDao.supprimer(1);
+
+		em.getTransaction().commit();
+
+		int nombreMediaApres = mediaDao.recupererMedias(0, 10).size();
+		assertEquals(0, nombreMediaApres);
+
+	}
    
 }

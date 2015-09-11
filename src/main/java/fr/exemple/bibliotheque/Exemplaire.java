@@ -110,6 +110,9 @@ public class Exemplaire implements Serializable {
         if (this.id != other.id) {
             return false;
         }
+        if (!this.reference.equals(other.reference)) {
+            return false;
+        }
         return true;
     }
 

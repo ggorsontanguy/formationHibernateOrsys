@@ -36,9 +36,6 @@ public class MediaDaoImpl implements  MediaDao{
         return em;
     }
     
-    
-    
-    
     @Override
     public void ajouter(Media m) {
         em.persist(m);

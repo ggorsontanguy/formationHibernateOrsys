@@ -21,6 +21,10 @@ import javax.persistence.Table;
 //@DiscriminatorValue("l")
 public class Livre extends Media implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1366542537890126306L;
 	@Column(unique= true, length=12, nullable= false)
     private String isbn;
     private int  pages;
