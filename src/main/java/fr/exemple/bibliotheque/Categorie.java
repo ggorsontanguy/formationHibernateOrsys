@@ -8,15 +8,13 @@ package fr.exemple.bibliotheque;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -27,16 +25,18 @@ import javax.persistence.Table;
 @Table(name="t_categorie")
 public class Categorie {
     @Id
-    @Column(name="identifiant")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "categorie_sequence" )
-    @SequenceGenerator(name="categorie_sequence",sequenceName ="categorie_sequence" ,allocationSize = 1)
+    @Column(name="identifiant", length=6)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "categorie_sequence" )
+//    @SequenceGenerator(name="categorie_sequence",sequenceName ="categorie_sequence" ,allocationSize = 1)
     private long id;
+    
     @Column(name="libelle",unique = true,length = 100)
     private String libelle;
     
     @ManyToMany(mappedBy = "categories") 
     private List<Media> medias;
-    
+
     
     public Categorie() {
         medias = new ArrayList<Media>();
@@ -66,10 +66,14 @@ public class Categorie {
     }
 
     public void setMedias(List<Media> medias) {
+    	
+    	// supprimer les anciens médias
         for(Media oldM : this.medias){
             removeMedia(oldM);
         }
-           for(Media newM : medias){
+        
+        // ajouter les nouveaux médias
+         for(Media newM : medias){
             addMedia(newM);
         }
     }
@@ -80,12 +84,14 @@ public class Categorie {
     
     
      public void addMedia(Media m) {
+    	// Loi de Demeter + mapping bi-directionnel
         if(!medias.contains(m)){
             medias.add(m);
             m.addCategorie(this);
         }
     }
       public void removeMedia(Media m) {
+    	// Loi de Demeter + mapping bi-directionnel
         if(medias.contains(m)){
             medias.remove(m);
             m.removeCategorie(this);

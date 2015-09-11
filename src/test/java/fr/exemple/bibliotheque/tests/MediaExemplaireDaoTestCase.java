@@ -54,8 +54,8 @@ public class MediaExemplaireDaoTestCase {
     @Test
     public void ajouter() {
         Media m1 = new Media(0, "UML","AGROSUP");
-        Exemplaire e1 = new Exemplaire(1, EtatExemplaire.Perdu);
-        Exemplaire e2 = new Exemplaire(2, EtatExemplaire.Disponible);
+        Exemplaire e1 = new Exemplaire(1, "dsq",EtatExemplaire.Perdu);
+        Exemplaire e2 = new Exemplaire(2, "sqd",EtatExemplaire.Disponible);
         //associer les exemplaires au media
         m1.addExemplaire(e1);
         m1.addExemplaire(e2);

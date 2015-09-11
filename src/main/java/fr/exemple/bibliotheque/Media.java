@@ -8,13 +8,10 @@ package fr.exemple.bibliotheque;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Cacheable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +21,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import org.hibernate.annotations.NaturalId;
 
 /**
@@ -40,19 +35,25 @@ import org.hibernate.annotations.NaturalId;
 @Inheritance(strategy = InheritanceType.JOINED)
 //@DiscriminatorColumn(name="discriminant")
 //@DiscriminatorValue("m")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Media {
     @Id
     @Column(name="identifiant")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "media_sequence")
-    @SequenceGenerator(name = "media_sequence",sequenceName ="media_sequence",allocationSize = 1 )
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "media_sequence")
+//    @SequenceGenerator(name = "media_sequence",sequenceName ="media_sequence",allocationSize = 1 )
     private long id;
-    @Column(unique = true)
+    
+    @Column(unique = true, length=100)
     @NaturalId
     private String titre;
+    
+    @Column(length=100)
     private String auteur;
+    
     @OneToMany(mappedBy = "media",cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
     private List<Exemplaire> exemplaires;
+    
     @ManyToMany
     @JoinTable(name="r_media_categorie",
                joinColumns = @JoinColumn(name="media_id"),
@@ -103,10 +104,11 @@ public class Media {
 
     public void setExemplaires(List<Exemplaire> exemplaires) {
         //this.exemplaires = exemplaires;
+    	// supprimer les anciens
         for(Exemplaire oldE : this.exemplaires){
             removeExemplaire(oldE);
         }
-        
+     // ajouter les nouveaux
         for(Exemplaire newE : exemplaires){
             addExemplaire(newE);
         }

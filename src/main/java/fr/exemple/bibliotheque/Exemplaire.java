@@ -7,14 +7,19 @@
 package fr.exemple.bibliotheque;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NaturalId;
 
 /**
  *
@@ -26,7 +31,14 @@ public class Exemplaire implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name="identifiant")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    
+    @NaturalId
+    @Column(length=20)
+    private String reference;
+    
+    @Enumerated(EnumType.STRING)
     private EtatExemplaire etat;
     
     @ManyToOne
@@ -34,11 +46,18 @@ public class Exemplaire implements Serializable {
     private Media media;
     
     public Exemplaire() {
+    	this.etat = EtatExemplaire.Disponible;
     }
 
-    public Exemplaire(long id, EtatExemplaire etat) {
+    public Exemplaire(long id, String reference, EtatExemplaire etat) {
         this.id = id;
+        this.reference =reference;
         this.etat = etat;
+    }
+    
+    public Exemplaire(long id, String reference, EtatExemplaire etat, Media media) {
+        this(id,reference, etat);
+        setMedia(media);
     }
     
     public long getId() {
@@ -67,8 +86,7 @@ public class Exemplaire implements Serializable {
             this.media.removeExemplaire(this);
         
         this.media = media;
-        
-        
+                
         if(media != null)
             media.addExemplaire(this);
     }
