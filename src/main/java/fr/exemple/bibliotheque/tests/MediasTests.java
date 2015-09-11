@@ -10,9 +10,12 @@ import fr.exemple.bibliotheque.EtatExemplaire;
 import fr.exemple.bibliotheque.Exemplaire;
 import fr.exemple.bibliotheque.Livre;
 import fr.exemple.bibliotheque.Media;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import org.junit.Test;
 
 /**
  *
@@ -25,8 +28,8 @@ public class MediasTests {
         //Création d'un media
         Media m1 = new Livre(0, "Hibernate1", "AGOSUP","989-909-90",292);
         //Création des exemplaires
-        Exemplaire e1 =new Exemplaire(3, "",EtatExemplaire.Disponible);
-        Exemplaire e2 =new Exemplaire(4, "", EtatExemplaire.Disponible);
+        Exemplaire e1 =new Exemplaire(3, "TROIS",EtatExemplaire.Disponible);
+        Exemplaire e2 =new Exemplaire(4, "QUATRE", EtatExemplaire.Disponible);
         //Associer les exemplaires au media
         m1.addExemplaire(e1);
         m1.addExemplaire(e2);
@@ -37,7 +40,7 @@ public class MediasTests {
         em.persist(m1);
         em.getTransaction().commit();
         //Associer un exemplaire supplementaire au media
-        Exemplaire e3 =new Exemplaire(5, "",EtatExemplaire.Disponible);
+        Exemplaire e3 =new Exemplaire(5, "CINQ",EtatExemplaire.Disponible);
         Media mExistant = em.getReference(Media.class, m1.getId());
         e3.setMedia(mExistant);
         em.getTransaction().begin();

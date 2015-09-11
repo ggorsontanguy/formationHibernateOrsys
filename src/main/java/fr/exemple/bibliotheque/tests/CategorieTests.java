@@ -6,10 +6,13 @@
 
 package fr.exemple.bibliotheque.tests;
 
-import fr.exemple.bibliotheque.Categorie;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
+import org.junit.Test;
+
+import fr.exemple.bibliotheque.Categorie;
 
 /**
  *

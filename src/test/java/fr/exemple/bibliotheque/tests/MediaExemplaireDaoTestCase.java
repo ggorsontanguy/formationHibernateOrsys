@@ -6,20 +6,21 @@
 
 package fr.exemple.bibliotheque.tests;
 
-import fr.exemple.bibliotheque.EtatExemplaire;
+import static org.junit.Assert.assertEquals;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import org.apache.log4j.Logger;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import fr.exemple.bibliotheque.Exemplaire;
 import fr.exemple.bibliotheque.Media;
 import fr.exemple.bibliotheque.dao.MediaDao;
 import fr.exemple.bibliotheque.dao.jpa.MediaDaoImpl;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import org.apache.log4j.Logger;
-import org.junit.AfterClass;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
  *
@@ -53,20 +54,26 @@ public class MediaExemplaireDaoTestCase {
     }
     @Test
     public void ajouter() {
-        Media m1 = new Media(0, "UML","AGROSUP");
-        Exemplaire e1 = new Exemplaire(1, "dsq",EtatExemplaire.Perdu);
-        Exemplaire e2 = new Exemplaire(2, "sqd",EtatExemplaire.Disponible);
-        //associer les exemplaires au media
-        m1.addExemplaire(e1);
-        m1.addExemplaire(e2);
-        em.getTransaction().begin();
-        mediaDao.ajouter(m1);
-        em.getTransaction().commit();
-        logger.info("Identifiant : "+ m1.getId() );
-        int nombreMediaApres = mediaDao.recupererMedias(0, 10).size();
-        assertEquals(1 , nombreMediaApres);
-       // em.close();
+        try {
+			Media m1 = new Media(0, "UML","Orsys");
+//			Exemplaire e1 = new Exemplaire(1, "UN",EtatExemplaire.Perdu);
+//			Exemplaire e2 = new Exemplaire(2, "DEUX",EtatExemplaire.Disponible);
+//			//associer les exemplaires au media
+//			m1.addExemplaire(e1);
+//			m1.addExemplaire(e2);
+			em.getTransaction().begin();
+			mediaDao.ajouter(m1);
+			em.getTransaction().commit();
+			logger.info("Identifiant : "+ m1.getId() );
+			int nombreMediaApres = mediaDao.recupererMedias(0, 10).size();
+			assertEquals(1 , nombreMediaApres);
+      // em.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
     }
+    
      @Test
     public void recupererParId() {
        em = emf.createEntityManager();

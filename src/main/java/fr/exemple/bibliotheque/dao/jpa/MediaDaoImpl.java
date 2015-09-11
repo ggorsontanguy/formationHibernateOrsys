@@ -6,16 +6,15 @@
 
 package fr.exemple.bibliotheque.dao.jpa;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type;
-import fr.exemple.bibliotheque.Media;
-import fr.exemple.bibliotheque.dao.MediaDao;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.stat.Statistics;
+
+import fr.exemple.bibliotheque.Media;
+import fr.exemple.bibliotheque.dao.MediaDao;
 
 /**
  *
@@ -63,20 +62,17 @@ public class MediaDaoImpl implements  MediaDao{
     @Override
     public List<Media> recupererMedias(int debut, int nombre) {
         Query query = em.createQuery("select m from Media m");
-        query.setHint("org.hibernate.cacheable", "true");
+//        query.setHint("org.hibernate.cacheable", "true");
         query.setFirstResult(debut);
         query.setMaxResults(nombre);
         
-        Session hSession = (Session) em.getDelegate() ;
-        SessionFactory sessionFactory = hSession.getSessionFactory();
-         //sessionFactory.getCache().evictEntityRegion("media");
-        //sessionFactory.getCache().evictDefaultQueryRegion();
-	Statistics statistics = sessionFactory.getStatistics();
-        logger.info("Statistiques " + statistics.getEntityLoadCount());
-        logger.info("Statistiques " + statistics.getEntityFetchCount());
-		
-       
-        
+//        Session hSession = (Session) em.getDelegate() ;
+//        SessionFactory sessionFactory = hSession.getSessionFactory();
+//         //sessionFactory.getCache().evictEntityRegion("media");
+//        //sessionFactory.getCache().evictDefaultQueryRegion();
+//	Statistics statistics = sessionFactory.getStatistics();
+//        logger.info("Statistiques " + statistics.getEntityLoadCount());
+//        logger.info("Statistiques " + statistics.getEntityFetchCount());
         
         return query.getResultList();
     }
