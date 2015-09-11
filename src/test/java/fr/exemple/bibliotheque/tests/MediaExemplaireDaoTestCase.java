@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import fr.exemple.bibliotheque.EtatExemplaire;
 import fr.exemple.bibliotheque.Exemplaire;
+import fr.exemple.bibliotheque.Livre;
 import fr.exemple.bibliotheque.Media;
 import fr.exemple.bibliotheque.dao.MediaDao;
 import fr.exemple.bibliotheque.dao.jpa.MediaDaoImpl;
@@ -56,7 +57,7 @@ public class MediaExemplaireDaoTestCase {
     @Test
     public void ajouter() {
         try {
-			Media m1 = new Media(0, "UML","Orsys");
+			Media m1 = new Livre(0, "UML","Orsys", "98-900-98", 12);
 			Exemplaire e1 = new Exemplaire(0, "ref1", EtatExemplaire.Perdu);
 			Exemplaire e2 = new Exemplaire(0, "ref2", EtatExemplaire.Disponible);
 			//		        associer les exemplaires au media
@@ -65,7 +66,8 @@ public class MediaExemplaireDaoTestCase {
 			 em.getTransaction().begin();
 			 mediaDao.ajouter(m1);
 			 em.getTransaction().commit();
-			 logger.info("Identifiant : "+ m1.getId() );
+			 identifiant = m1.getId();
+			logger.info("Identifiant : "+ identifiant );
 			 int nombreMediaApres = mediaDao.recupererMedias(0, 10).size();
 			 assertEquals(1 , nombreMediaApres);
       // em.close();
@@ -77,7 +79,7 @@ public class MediaExemplaireDaoTestCase {
     
      @Test
     public void recupererParId() {
-       Media m1 = mediaDao.recupererParId(1);
+       Media m1 = mediaDao.recupererParId(identifiant);
         //lister les exemplaires
        // Media m1Clone = new Media(m1.getId(), m1.getTitre(), m1.getAuteur());
         //m1Clone.setExemplaires(m1.getExemplaires());
@@ -94,13 +96,10 @@ public class MediaExemplaireDaoTestCase {
     @Test
 	public void supprimer() {
 		em.getTransaction().begin();
-		Media m1 = mediaDao.recupererParId(1);
-
+		Media m1 = mediaDao.recupererParId(identifiant);
 		assertEquals(true, m1 != null);
-
 		// supprimer le media
-		mediaDao.supprimer(1);
-
+		mediaDao.supprimer(identifiant);
 		em.getTransaction().commit();
 
 		int nombreMediaApres = mediaDao.recupererMedias(0, 10).size();
