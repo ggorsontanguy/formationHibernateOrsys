@@ -26,10 +26,10 @@ public class MediasTests {
     public static void main(String[] args) {
         
         //Création d'un media
-        Media m1 = new Livre(0, "Hibernate1", "AGOSUP","989-909-90",292);
+        Media m1 = new Livre(0, "Hibernate1", "Orsys","989-909-90",292);
         //Création des exemplaires
-        Exemplaire e1 =new Exemplaire(3, "TROIS",EtatExemplaire.Disponible);
-        Exemplaire e2 =new Exemplaire(4, "QUATRE", EtatExemplaire.Disponible);
+        Exemplaire e1 =new Exemplaire(0, "TROIS",EtatExemplaire.Disponible);
+        Exemplaire e2 =new Exemplaire(0, "QUATRE", EtatExemplaire.Disponible);
         //Associer les exemplaires au media
         m1.addExemplaire(e1);
         m1.addExemplaire(e2);
