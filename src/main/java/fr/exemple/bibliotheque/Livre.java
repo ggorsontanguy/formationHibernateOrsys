@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * @author houahidi
  */
 @Entity
-@Table(name="t_livre")
+//@Table(name="t_livre")
 @DiscriminatorValue("livre")
 public class Livre extends Media implements Serializable {
 
@@ -26,7 +26,7 @@ public class Livre extends Media implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1366542537890126306L;
-	@Column(unique= true, length=12, nullable= false)
+	@Column(unique= true, length=12, nullable= true)
     private String isbn;
     private int  pages;
 

@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import fr.exemple.bibliotheque.Media;
 
-public class ExempleValidationTestCase {
+public class ExempleValidationTest {
 
 	private ValidatorFactory factory;
 	private Validator validator;

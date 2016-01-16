@@ -6,8 +6,6 @@
 
 package fr.exemple.bibliotheque.tests;
 
-import static org.junit.Assert.assertEquals;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,12 +21,15 @@ import fr.exemple.bibliotheque.Livre;
 import fr.exemple.bibliotheque.Media;
 import fr.exemple.bibliotheque.dao.MediaDao;
 import fr.exemple.bibliotheque.dao.jpa.MediaDaoImpl;
+import junit.framework.TestCase;
+import junit.framework.TestResult;
+import junit.framework.TestSuite;
 
 /**
  *
  * @author houahidi
  */
-public class MediaExemplaireDaoTestCase {
+public class MediaExemplaireDaoTestCase extends TestCase {
     
     private static Logger logger = Logger.getLogger(MediaExemplaireDaoTestCase.class);
     private static EntityManagerFactory emf;
@@ -36,7 +37,8 @@ public class MediaExemplaireDaoTestCase {
     private static MediaDao mediaDao;
     private static long identifiant;
    
-    public MediaExemplaireDaoTestCase() {
+    public MediaExemplaireDaoTestCase(String testName) {
+    		super(testName);
     }
     
     @BeforeClass
@@ -54,6 +56,31 @@ public class MediaExemplaireDaoTestCase {
         em.close(); em = null;
         emf.close(); emf = null;
     }
+    
+    @Test
+    public void suiteShouldPass() {
+    	
+    	// GIVEN
+    	TestResult result = new TestResult();
+    	
+    	// WHEN
+		MediaExemplaireDaoTestCase.suite().run(result );
+		
+		// THEN
+		assertEquals("should have no errrors", 0,result.errorCount());
+    }
+    
+    public static junit.framework.Test suite() {
+    	setUpClass();
+    	TestSuite suite = new TestSuite("MediaExemplaireDaoTestCase");
+        suite.addTest(new MediaExemplaireDaoTestCase("ajouter"));
+        suite.addTest(new MediaExemplaireDaoTestCase("recupererParId"));
+        suite.addTest(new MediaExemplaireDaoTestCase("recupererList"));
+        suite.addTest(new MediaExemplaireDaoTestCase("supprimer"));
+        suite.addTest(new MediaExemplaireDaoTestCase("tearDownClass"));
+        return suite;
+  }
+    
     @Test
     public void ajouter() {
         try {
@@ -120,7 +147,7 @@ public class MediaExemplaireDaoTestCase {
      }
      
      
-//    @Test
+    @Test
 	public void supprimer() {
 		em.getTransaction().begin();
 		Media m1 = mediaDao.recupererParId(identifiant);

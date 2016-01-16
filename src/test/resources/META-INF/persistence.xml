@@ -1,46 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="uni_library_db" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    
-<!--     <jta-data-source>jdbc/DataSource</jta-data-source> -->
-        
-    <class>fr.exemple.bibliotheque.Exemplaire</class>
-    <class>fr.exemple.bibliotheque.Media</class>
-    <class>fr.exemple.bibliotheque.Livre</class>
-    <class>fr.exemple.bibliotheque.Categorie</class>
-	<properties>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="uni_library_db"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/bibliotheque_db" />
-	<property name="javax.persistence.jdbc.user" value="root" />
-	<property name="javax.persistence.jdbc.password" value="" />
-	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+		<!-- <jta-data-source>jdbc/DataSource</jta-data-source> -->
 
-	<!-- <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/uni_library_db"/> 
-		<property name="javax.persistence.jdbc.password" value="root"/> <property 
-		name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/> <property 
-		name="javax.persistence.jdbc.user" value="postgres"/> -->
+		<class>fr.exemple.bibliotheque.Exemplaire</class>
+		<class>fr.exemple.bibliotheque.Media</class>
+		<class>fr.exemple.bibliotheque.Livre</class>
+		<class>fr.exemple.bibliotheque.Categorie</class>
+		<properties>
 
-	<!-- standard JPA -->
-	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
-	<property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create" />
-	<property name="javax.persistence.schema-generation.scripts.create-target" value="create-biblio.ddl" />
-	<property name="javax.persistence.schema-generation.scripts.drop-target" value="drop-biblio.ddl" />
-	<property name="javax.persistence.schema-generation.sql-load-script-source" value="import.sql" />
+			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver" />
+			<!-- for test -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testdb;shutdown=false"/>
+			<!-- for debug test : the HSQLDB server must run before launch the tests-->
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/sandboxDb" /> -->
+			
+			<property name="javax.persistence.jdbc.user" value="SA" />
+			<property name="javax.persistence.jdbc.password" value="" />
 
-	<!-- propre à hibernate -->
-	<!-- <property name="hibernate.hbm2ddl.auto" value="update" /> create_drop, 
-		update, validate -->
-	<property name="hibernate.show_sql" value="true" />
-	<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/bibliotheque_db" 
+				/> <property name="javax.persistence.jdbc.user" value="root" /> <property 
+				name="javax.persistence.jdbc.password" value="" /> <property name="javax.persistence.jdbc.driver" 
+				value="com.mysql.jdbc.Driver" /> -->
 
-  <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" /> 
-  <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory" /> 
-  <property name="hibernate.cache.use_second_level_cache" value="true" /> 
-  <property name="hibernate.cache.use_query_cache" value="true" /> 
-	
-	<property name="hibernate.generate_statistics" value="true" />
+			<!-- <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/uni_library_db"/> 
+				<property name="javax.persistence.jdbc.password" value="root"/> <property 
+				name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/> <property 
+				name="javax.persistence.jdbc.user" value="postgres"/> -->
 
-</properties>
-  </persistence-unit>
+			<!-- standard JPA -->
+ 			<property name="javax.persistence.schema-generation.database.action"
+				value="drop-and-create" />
+			<property name="javax.persistence.schema-generation.scripts.action"
+				value="drop-and-create" />
+			<property name="javax.persistence.schema-generation.scripts.create-target"
+				value="create-biblio.ddl" />
+			<property name="javax.persistence.schema-generation.scripts.drop-target"
+				value="drop-biblio.ddl" />
+			<property
+				name="javax.persistence.schema-generation.sql-load-script-source"
+				value="import.sql" />
+
+			<!-- propre à hibernate -->
+			<!--<property name="hibernate.hbm2ddl.auto" value="update" />  create_drop, 
+				update, validate -->
+			<property name="hibernate.show_sql" value="true" />
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" 
+				/> -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
+			<property name="hibernate.cache.region.factory_class"
+				value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+			<property name="hibernate.cache.use_second_level_cache"
+				value="true" />
+			<property name="hibernate.cache.use_query_cache" value="true" />
+
+			<property name="hibernate.generate_statistics" value="true" />
+
+		</properties>
+	</persistence-unit>
 </persistence>

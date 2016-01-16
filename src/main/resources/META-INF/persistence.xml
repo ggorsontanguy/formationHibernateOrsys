@@ -12,7 +12,11 @@
 	<properties>
 
         <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testdb;shutdown=false" />
+         <!-- for test -->
+        <!-- <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:testdb;shutdown=false" /> -->
+        <!-- for debug test the HSQLDB server must run before launch the tests-->
+        <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/sandboxDb" />
+        
         <property name="javax.persistence.jdbc.user" value="SA" />
         <property name="javax.persistence.jdbc.password" value="" />
 
@@ -27,15 +31,15 @@
 		name="javax.persistence.jdbc.user" value="postgres"/> -->
 
 	<!-- standard JPA -->
-	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+	<!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
 	<property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create" />
 	<property name="javax.persistence.schema-generation.scripts.create-target" value="create-biblio.ddl" />
-	<property name="javax.persistence.schema-generation.scripts.drop-target" value="drop-biblio.ddl" />
+	<property name="javax.persistence.schema-generation.scripts.drop-target" value="drop-biblio.ddl" /> -->
 	<property name="javax.persistence.schema-generation.sql-load-script-source" value="import.sql" />
 
 
 	<!-- propre à hibernate -->
-	<!-- <property name="hibernate.hbm2ddl.auto" value="update" /> create_drop, 
+	<property name="hibernate.hbm2ddl.auto" value="update" /> <!-- create_drop, 
 		update, validate -->
 	<property name="hibernate.show_sql" value="true" />
 	<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" /> -->

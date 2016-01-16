@@ -6,34 +6,39 @@
 
 package fr.exemple.bibliotheque.tests;
 
-import fr.exemple.bibliotheque.Media;
-import fr.exemple.bibliotheque.dao.MediaDao;
-import fr.exemple.bibliotheque.dao.jpa.MediaDaoImpl;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import fr.exemple.bibliotheque.Media;
+import fr.exemple.bibliotheque.dao.MediaDao;
+import fr.exemple.bibliotheque.dao.jpa.MediaDaoImpl;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  *
  * @author houahidi
  */
-public class MediaDaoTestCase {
-    
+public class MediaDaoTestCase extends TestCase {
+
     private static Logger logger = Logger.getLogger(MediaDaoTestCase.class);
     private static EntityManagerFactory emf;
     private static EntityManager em;
     private static MediaDao mediaDao;
     private static long identifiant;
-	private long identifiant2;
+	private static long identifiant2;
    
-    public MediaDaoTestCase() {
-    }
+	public MediaDaoTestCase(String testName) {
+		super(testName);
+	}
     
     @BeforeClass
     public static void setUpClass() {
@@ -50,11 +55,24 @@ public class MediaDaoTestCase {
         em.close(); em = null;
         emf.close(); emf = null;
     }
-    @Test
+    
+    public static junit.framework.Test suite() {
+    	setUpClass();
+    	TestSuite suite = new TestSuite("MediaDaoTestCase");
+        suite.addTest(new MediaDaoTestCase("ajouter"));
+        suite.addTest(new MediaDaoTestCase("recupererListe1"));
+        suite.addTest(new MediaDaoTestCase("recupererListe2"));
+        suite.addTest(new MediaDaoTestCase("supprimer"));
+        suite.addTest(new MediaDaoTestCase("tearDownClass"));
+        return suite;
+  }
+    
+//    @Test
     public void ajouter() {
         Media m1 = new Media(0, "UML","Orsys");
         Media m2 = new Media(0, "XML","Orsys");
-        //int nombreMediaAvant = mediaDao.recupererMedias(0, 10).size();
+        int nombreMediaAvant = mediaDao.recupererMedias(0, 10).size();
+        assertEquals(0, nombreMediaAvant);
         em.getTransaction().begin();
         mediaDao.ajouter(m1);
         mediaDao.ajouter(m2);
@@ -67,7 +85,7 @@ public class MediaDaoTestCase {
        
     }
     
-    @Test
+//    @Test
      public void recupererListe1() {
          logger.info("recupererListe1---------------------------------------");
          List<Media> medias = mediaDao.recupererMedias(0, 10);
@@ -77,7 +95,7 @@ public class MediaDaoTestCase {
      }
    
     
-    @Test
+//    @Test
      public void recupererListe2() {
         logger.info("recupererListe2---------------------------------------debut");
         em.close();
@@ -91,7 +109,7 @@ public class MediaDaoTestCase {
      }
     
     
-     @Test
+//     @Test
      public void modifier() {
         Media m = mediaDao.recupererParId(identifiant);
         m.setAuteur("autor");
@@ -102,7 +120,7 @@ public class MediaDaoTestCase {
         assertEquals(m.getTitre() , mUpdate.getTitre());
     }
      
-//    @Test
+    @Test
     public void supprimer() {
         em.getTransaction().begin();
         mediaDao.supprimer(identifiant);
