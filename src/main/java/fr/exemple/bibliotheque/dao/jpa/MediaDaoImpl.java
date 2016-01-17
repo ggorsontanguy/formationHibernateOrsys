@@ -6,6 +6,7 @@
 
 package fr.exemple.bibliotheque.dao.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -74,7 +75,14 @@ public class MediaDaoImpl implements  MediaDao{
         logger.info("____________Statistiques " + statistics.getEntityLoadCount());
         logger.info("____________Statistiques " + statistics.getEntityFetchCount());
         
-        return query.getResultList();
+        List<?> resultList = query.getResultList();
+        List<Media> listMedia = new ArrayList<>(resultList.size());
+        for (Object object : resultList) {
+        	if (object instanceof Media) {
+				listMedia.add((Media) object);
+			}
+		}
+		return listMedia;
     }
     
 }
