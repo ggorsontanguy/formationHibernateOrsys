@@ -6,16 +6,14 @@
 
 package fr.exemple.bibliotheque.tests;
 
-import fr.exemple.bibliotheque.EtatExemplaire;
-import fr.exemple.bibliotheque.Exemplaire;
-import fr.exemple.bibliotheque.Livre;
-import fr.exemple.bibliotheque.Media;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.junit.Test;
+import fr.exemple.bibliotheque.EtatExemplaire;
+import fr.exemple.bibliotheque.Exemplaire;
+import fr.exemple.bibliotheque.Livre;
+import fr.exemple.bibliotheque.Media;
 
 /**
  *
